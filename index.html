@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MADE BY RAJ PRO MODS</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Black background */
+            color: #fff; /* White text */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            width: 250px;
+            height: auto;
+            padding: 20px;
+            border: 2px solid #0ff; /* Neon blue border */
+            border-radius: 10px;
+            box-shadow: 0 0 10px #000; /* Black shadow */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #111; /* Slightly lighter black background */
+        }
+        h1 {
+            color: #0ff; /* Neon blue */
+            text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        .text-field {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 14px;
+            background-color: #222; /* Darker gray background for text fields */
+            color: #0f0; /* Neon green text */
+            border: 1px solid #555;
+            border-radius: 5px;
+            text-align: center;
+            width: 100%;
+        }
+        .refresh-button {
+            margin-top: 15px;
+            width: 100px;
+            height: 40px;
+            background-color: #ff0000; /* Neon red */
+            color: #fff; /* White text */
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #000; /* Black shadow */
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .refresh-button:hover {
+            background-color: #ff4040; /* Slightly lighter red on hover */
+        }
+    </style>
+    <script>
+        function calculatePeriod() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const totalMinutes = (hours * 60) + minutes;
+
+            // Get current date in yyyyMMdd format
+            const currentDate = now.toISOString().slice(0, 10).replace(/-/g, "");
+
+            // Calculate period number
+            const offset = 330; // 5 hours 30 minutes
+            const periodCalculation = 10001 + totalMinutes - offset;
+            const periodNumber = currentDate + "1000" + periodCalculation;
+
+            // Update TextView2
+            document.getElementById("textView2").innerText = " " + periodNumber;
+
+            // Calculate digit sum
+            let digitSum = 0;
+            for (const char of String(periodCalculation)) {
+                digitSum += parseInt(char, 10);
+            }
+
+            // Calculate result based on digit sum
+            const resultNumber = (digitSum * 7) % 10;
+            const result = (resultNumber >= 1 && resultNumber <= 4) ? "SMALL" : "BIG";
+
+            // Update TextView1
+            document.getElementById("textView1").innerText = result;
+        }
+
+        function refreshPage() {
+            location.reload(); // Reload the entire page
+        }
+    </script>
+</head>
+<body onload="calculatePeriod()">
+    <div class="container">
+        <h1>RAJ PRO MODS</h1>
+        <div id="textView2" class="text-field"></div>
+        <div id="textView1" class="text-field"></div>
+        <button class="refresh-button" onclick="refreshPage()">REFRESH</button>
+    </div>
+</body>
+</html>
